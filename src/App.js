@@ -3,15 +3,18 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+
 function App() {
-
-    const [getData, setGetData] = useState('');
-
+    
+    const API_URL = process.env.REACT_APP_API_URL;
+    
+    const [getData, setGetData] = useState('...fetching...');
+    
     useEffect(() => {
-        axios.get('http://localhost:8000/')
+        axios.get(`${API_URL}/api/`)
             .then(response => setGetData(response.data));
             
-        axios.post('http://localhost:8000/', { data: 'Hey, teapot' })
+        axios.post(`${API_URL}/api/`, { data: 'Hey, teapot' })
             .then(response => alert(response.data));    
     }, []);
 
