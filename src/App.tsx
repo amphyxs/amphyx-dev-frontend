@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.scss';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 function App() {
 
@@ -10,11 +10,17 @@ function App() {
 	const [getData, setGetData] = useState('...fetching...');
 
 	useEffect(() => {
-		axios.get(`${API_URL}/api/`)
-			.then(response => setGetData(response.data));
+		interface Error {
+			'message': string,
+		}
 
+		axios.get(`${API_URL}/api/`)
+			.then((response : AxiosResponse<string, string>) => setGetData(response.data))
+			.catch((error : Error) => alert(error.message));
+			
 		axios.post(`${API_URL}/api/`, { data: 'Hey, teapot' })
-			.then(response => alert(response.data));
+			.then(response => alert(response.data))
+			.catch((error : Error) => alert(error.message));
 	}, []);
 
 	return (
@@ -31,7 +37,7 @@ function App() {
 					rel="noopener noreferrer"
 				>
 					👇👇👇👇👇👇👇👇👇👇
-					<p>!!FREE ROBUX!!</p>
+					<p>FREE ROBUX!!</p>
 				</a>
 				<code>
 					10'000 ROBUX download
