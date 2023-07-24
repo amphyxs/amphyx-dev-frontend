@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -27,12 +27,16 @@ function App() {
                 </p>
                 <a
                     className="App-link"
-                    href="https://reactjs.org"
+                    href="https://www.youtube.com/watch?v=oHg5SJYRHA0"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
                     Learn React
+                    <p>Hello, Ssang</p>
                 </a>
+                <code>
+                    print('OGO')
+                </code>
             </header>
         </div>
     );
