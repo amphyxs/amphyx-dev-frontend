@@ -7,6 +7,7 @@ import Projects from './pages/Projects';
 import Blog from './pages/Blog';
 import Books from './pages/Books';
 import Navbar from './components/Navbar';
+import NotFound from './pages/NotFound';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -15,19 +16,23 @@ const root = ReactDOM.createRoot(
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <Main/>
+        element: <Main/>,
+        errorElement: <NotFound/>,
     },
     {
         path: '/projects',
-        element: <Projects/>
+        element: <Projects/>,
+        errorElement: <NotFound/>,
     },
     {
         path: '/blog',
-        element: <Blog/>
+        element: <Blog/>,
+        errorElement: <NotFound/>,
     },
     {
         path: '/books',
-        element: <Books/>
+        element: <Books/>,
+        errorElement: <NotFound/>,
     },
 ]);
 
