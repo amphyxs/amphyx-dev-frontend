@@ -58,7 +58,7 @@ const Main = () => {
     }, [])
 
     return (
-        <div className='grid grid-cols-10 gap-10 px-16 py-20 max-md:flex max-md:flex-col'>
+        <div className='grid grid-cols-10 py-20 lg:px-3 lg:gap-3 xl:gap-5 2xl:gap-10 xl:px-4 2xl:px-16 max-lg:flex max-lg:flex-col max-lg:px-20 max-sm:px-5 max-sm:py-5'>
             <div className='col-span-2'></div>
             <div className="flex flex-col col-span-6 gap-6">
                 <TitledCard
@@ -83,7 +83,7 @@ const Main = () => {
                     <img src='https://leetcard.jacoblin.cool/amphyx?border=0&theme=light&show_rank=false&width=700' />
                 </TitledCard>
             </div>
-            <div className='flex flex-col col-span-2 gap-6'>
+            <div className='flex flex-col col-span-2 gap-6 max-lg:mt-6'>
                 <TitledCard
                     className='col-span-2'
                 >
