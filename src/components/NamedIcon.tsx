@@ -3,8 +3,9 @@ import { ReactComponent as VKIcon } from '../icons/vk.svg';
 import { ReactComponent as HelloIcon } from '../icons/hello.svg';
 import { ReactComponent as GitHubIcon } from '../icons/github.svg';
 import { ReactComponent as LeetCodeIcon } from '../icons/leetcode.svg';
+import { ReactComponent as LogoIcon } from '../icons/logo.svg';
 
-const NamedIcon = ({ name, className }: { name: string, className: string }) => {
+const NamedIcon = ({ name, className }: { name: string, className?: string }) => {
     
     const icons: Record<string, JSX.Element> = {
         'vk': <VKIcon/>,
@@ -13,6 +14,7 @@ const NamedIcon = ({ name, className }: { name: string, className: string }) => 
         'github': <GitHubIcon/>,
         'leetcode': <LeetCodeIcon/>,
         'info': <InformationCircleIcon/>,
+        'logo': <LogoIcon/>,
     };
 
     const getIconWithClassName = () => {

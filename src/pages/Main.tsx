@@ -58,7 +58,7 @@ const Main = () => {
     }, [])
 
     return (
-        <div className='grid grid-cols-10 py-20 lg:px-3 lg:gap-3 xl:gap-5 2xl:gap-10 xl:px-4 2xl:px-16 max-lg:flex max-lg:flex-col max-lg:px-20 max-sm:px-5 max-sm:py-5'>
+        <div className='grid grid-cols-10 py-12 lg:px-3 lg:gap-3 xl:gap-5 2xl:gap-10 xl:px-4 2xl:px-16 max-lg:flex max-lg:flex-col max-lg:px-20 max-sm:px-5 max-sm:py-5'>
             <div className='col-span-2'></div>
             <div className="flex flex-col col-span-6 gap-6">
                 <TitledCard
