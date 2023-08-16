@@ -4,9 +4,11 @@ import NamedIcon from "./NamedIcon";
 type Props = {
     text?: string,
     icon?: string,
+    textClassName?: string,
+    iconClassName?: string,
 }
 
-const IconedTitle = ({ text, icon }: Props) => {
+const IconedTitle = ({ text, icon, textClassName='text-2xl', iconClassName='mr-1 w-7 h-7' }: Props) => {
 
     return (
         <div className="flex mb-5">
@@ -14,12 +16,12 @@ const IconedTitle = ({ text, icon }: Props) => {
                 icon &&
                 <NamedIcon
                     name={icon}
-                    className='self-center inline mr-1 w-7 h-7'
+                    className={iconClassName + ' self-center inline'}
                 />
             }
             {
                 text &&
-                <h1 className='text-2xl'>{text}</h1>
+                <h1 className={textClassName}>{text}</h1>
             }
         </div>
     );

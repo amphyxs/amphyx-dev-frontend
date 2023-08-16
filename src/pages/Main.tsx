@@ -3,6 +3,7 @@ import { ArrowUpRightIcon } from '@heroicons/react/24/outline'
 import { useEffect, useState } from 'react';
 import NamedIcon from '../components/NamedIcon';
 import TitledCard from '../components/TitledCard';
+import IconedTitle from '../components/IconedTitle';
 
 
 const Main = () => {
@@ -66,7 +67,22 @@ const Main = () => {
                     title='Hello!'
                     icon='hello'
                 >
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio magni dicta quasi itaque esse labore minima sunt rerum hic ab autem, iste tempora nemo sequi quia quisquam velit distinctio tenetur!</p>
+                    <p>I am Kirill Sandow — 19 y.o. Full-Stack dev from Saint-Petersurg, Russia.</p>
+                    <h2 className='text-xl'>My main stack:</h2>
+                    <div
+                        className='flex flex-row justify-around mt-5'
+                    >
+                        <IconedTitle
+                            text='Django + DRF'
+                            icon='django'
+                        />
+                        <IconedTitle
+                            text='React'
+                            icon='react'
+                        />
+                    </div>
+                    <hr className='my-2'/>
+                    <p>I am opened to collaboration. Also, you can offer me a job.</p>
                 </TitledCard>
                 <TitledCard
                     className='col-span-6'
@@ -107,9 +123,20 @@ const Main = () => {
                 <TitledCard
                     className='col-span-2'
                     title='Current status'
-                    icon='status'
+                    icon='info'
                 >
-                    <p>Working at Mindskills</p>
+                    <IconedTitle
+                        text='Working at Mindskills'
+                        icon='hire'
+                        textClassName='text-md'
+                        iconClassName='w-5 h-5 mr-2'
+                        />
+                    <IconedTitle
+                        text={`Studying at ITMO Software Engineering '26`}
+                        icon='education'
+                        textClassName='text-md'
+                        iconClassName='w-7 h-7 mr-2'
+                    />
                 </TitledCard>
                 <TitledCard
                     className='col-span-2'
