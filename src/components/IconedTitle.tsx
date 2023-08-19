@@ -21,7 +21,7 @@ const IconedTitle = ({ text, icon, textClassName='text-2xl', iconClassName='mr-1
             }
             {
                 text &&
-                <h1 className={textClassName}>{text}</h1>
+                <h1 className={textClassName + ' flex-1'}>{text}</h1>
             }
         </div>
     );
