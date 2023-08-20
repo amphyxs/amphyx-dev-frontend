@@ -8,6 +8,7 @@ import Blog from './pages/Blog';
 import Books from './pages/Books';
 import Navbar from './components/Navbar';
 import NotFound from './pages/NotFound';
+import { Helmet } from 'react-helmet';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -15,6 +16,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
     <React.StrictMode>
+        <Helmet>
+          <title>Amphyx's site</title>
+        </Helmet>
         <BrowserRouter>
             <Navbar/>
             <Routes>
