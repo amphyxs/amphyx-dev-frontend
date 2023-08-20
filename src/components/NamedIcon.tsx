@@ -1,4 +1,4 @@
-import { LinkIcon, ChartBarIcon, InformationCircleIcon, BriefcaseIcon, AcademicCapIcon, EnvelopeIcon, DocumentIcon } from '@heroicons/react/24/outline'
+import { LinkIcon, ChartBarIcon, InformationCircleIcon, BriefcaseIcon, AcademicCapIcon, EnvelopeIcon, DocumentIcon, SunIcon, MoonIcon } from '@heroicons/react/24/outline'
 import { ReactComponent as VKIcon } from '../icons/vk.svg';
 import { ReactComponent as HelloIcon } from '../icons/hello.svg';
 import { ReactComponent as GitHubIcon } from '../icons/github.svg';
@@ -28,6 +28,8 @@ const NamedIcon = ({ name, className }: { name: string, className?: string }) =>
         'email': <EnvelopeIcon/>,
         'wip': <WIPIcon/>,
         'document': <DocumentIcon/>,
+        'day': <SunIcon/>,
+        'night': <MoonIcon/>,
     };
 
     const getIconWithClassName = () => {

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import NamedIcon from '../components/NamedIcon';
 import TitledCard from '../components/TitledCard';
 import IconedTitle from '../components/IconedTitle';
+import { Theme } from '../components/ThemeChooser';
 
 
 const Main = () => {
@@ -53,13 +54,17 @@ const Main = () => {
             .catch((error: Error) => console.error(error.message));
     }
 
+    const getTheme = () => {
+        return document.documentElement.classList.contains('dark') ? Theme.Dark : Theme.Light;
+    }
+
     useEffect(() => {
         fetchContactLinks();
         fetchHireLinks();
     }, [])
 
     return (
-        <div className='grid grid-cols-10 py-12 lg:px-3 lg:gap-3 xl:gap-5 2xl:gap-10 xl:px-4 2xl:px-16 max-lg:flex max-lg:flex-col max-lg:px-20 max-sm:px-5 max-sm:py-5'>
+        <div className='grid grid-cols-10 py-12 bg-slate-50 dark:bg-zinc-900 lg:px-3 lg:gap-3 xl:gap-5 2xl:gap-10 xl:px-4 2xl:px-16 max-lg:flex max-lg:flex-col max-lg:px-20 max-sm:px-5 max-sm:py-5'>
             <div className='col-span-2'></div>
             <div className="flex flex-col col-span-6 gap-6">
                 <TitledCard
@@ -89,14 +94,18 @@ const Main = () => {
                     title='GitHub stats'
                     icon='github'
                 >
-                    <img src='https://github-readme-stats.vercel.app/api?username=amphyxs&hide_border=true&card_width=700&card_height=500&disable_animations=true' />
+                    <img
+                        src={`https://github-readme-stats.vercel.app/api?username=amphyxs&theme=${getTheme()}&hide_border=true&card_width=700&disable_animations=true`}
+                    />
                 </TitledCard>
                 <TitledCard
                     className='col-span-6'
                     title='LeetCode stats'
                     icon='leetcode'
                 >
-                    <img src='https://leetcard.jacoblin.cool/amphyx?border=0&theme=light&show_rank=false&width=700' />
+                    <img 
+                        src={`https://leetcard.jacoblin.cool/amphyx?border=0&theme=${getTheme()}&show_rank=false&width=700`}
+                    />
                 </TitledCard>
             </div>
             <div className='flex flex-col col-span-2 gap-6 max-lg:mt-6'>
@@ -109,10 +118,10 @@ const Main = () => {
                                 <a href={contactLink.url} className="flex justify-between py-4 gap-x-6 hover:opacity-70">
                                     <div className='flex gap-2'>
                                         <NamedIcon
-                                            className='self-center w-4 h-4 text-slate-500 fill-slate-500'
+                                            className='self-center w-4 h-4 text-slate-500 fill-slate-500 dark:text-slate-200 dark:fill-slate-200'
                                             name={contactLink.icon}
                                         />
-                                        <p className="text-sm font-semibold leading-6 text-gray-900">{contactLink.name}</p>
+                                        <p className="text-sm font-semibold leading-6 text-gray-900 dark:text-slate-300">{contactLink.name}</p>
                                     </div>
                                     <ArrowUpRightIcon className='self-center w-4 h-4' />
                                 </a>
@@ -149,10 +158,10 @@ const Main = () => {
                                     <a href={contactLink.url} className="flex justify-between py-4 gap-x-6 hover:opacity-70">
                                         <div className='flex gap-2'>
                                             <NamedIcon
-                                                className='self-center w-4 h-4 text-slate-500 fill-slate-500'
+                                                className='self-center w-4 h-4 text-slate-500 fill-slate-500 dark:text-slate-200 dark:fill-slate-200'
                                                 name={contactLink.icon}
                                             />
-                                            <p className="text-sm font-semibold leading-6 text-gray-900">{contactLink.name}</p>
+                                            <p className="text-sm font-semibold leading-6 text-gray-900 dark:text-slate-300">{contactLink.name}</p>
                                         </div>
                                         <ArrowUpRightIcon className='self-center w-4 h-4' />
                                     </a>

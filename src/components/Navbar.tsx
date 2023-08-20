@@ -2,6 +2,7 @@ import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { NavLink } from 'react-router-dom';
 import NamedIcon from './NamedIcon';
+import ThemeChooser from './ThemeChooser';
 
 const navigation = [
   { name: 'Main', href: '/' },
@@ -42,38 +43,43 @@ const Navbar = () => {
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <NavLink
-                        key={item.name}
-                        to={item.href}
-                        className={(state) => classNames(
-                          state.isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'rounded-md px-3 py-2 text-sm font-medium'
-                        )}
-                      >
-                        {item.name}
-                      </NavLink>
-                    ))}
+                    {
+                      navigation.map((item) => (
+                        <NavLink
+                          key={item.name}
+                          to={item.href}
+                          className={(state) => classNames(
+                            state.isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                            'rounded-md px-3 py-2 text-sm font-medium'
+                          )}
+                        >
+                          {item.name}
+                        </NavLink>
+                      ))
+                    }
                   </div>
                 </div>
               </div>
+              <ThemeChooser/>
             </div>
           </div>
 
           <Disclosure.Panel className="sm:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {navigation.map((item) => (
-                <NavLink
-                  key={item.name}
-                  to={item.href}
-                  className={(state) => classNames(
-                    state.isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                    'block rounded-md px-3 py-2 text-base font-medium'
-                  )}
-                >
-                  {item.name}
-                </NavLink>
-              ))}
+              {
+                navigation.map((item) => (
+                  <NavLink
+                    key={item.name}
+                    to={item.href}
+                    className={(state) => classNames(
+                      state.isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                      'block rounded-md px-3 py-2 text-base font-medium'
+                    )}
+                  >
+                    {item.name}
+                  </NavLink>
+                ))
+              }
             </div>
           </Disclosure.Panel>
         </>
