@@ -5,9 +5,12 @@ import NamedIcon from '../components/NamedIcon';
 import TitledCard from '../components/TitledCard';
 import IconedTitle from '../components/IconedTitle';
 import { Theme } from '../components/ThemeChooser';
+import Container from '../components/Container';
 
 
 const Main = () => {
+
+    const API_URL = process.env.REACT_APP_API_URL;
 
     type ContactLinkResponse = {
         'id': number,
@@ -26,10 +29,9 @@ const Main = () => {
     const [contactLinks, setContactLinks] = useState([] as Array<ContactLink>);
     const [hireLinks, setHireLinks] = useState([] as Array<ContactLink>);
 
-    const API_URL = process.env.REACT_APP_API_URL;
-
     const fetchContactLinks = () => {
-        axios.get(`${API_URL}/api/personal-info/contact-links/`)
+        axios
+            .get(`${API_URL}/api/personal-info/contact-links/`)
             .then((response: AxiosResponse<Array<ContactLinkResponse>, ContactLink>) => {
                 setContactLinks(response.data.map((responseObject) => Object.create({
                     'id': responseObject.id,
@@ -64,7 +66,7 @@ const Main = () => {
     }, [])
 
     return (
-        <div className='grid grid-cols-10 py-12 bg-slate-50 dark:bg-zinc-900 lg:px-3 lg:gap-3 xl:gap-5 2xl:gap-10 xl:px-4 2xl:px-16 max-lg:flex max-lg:flex-col max-lg:px-20 max-sm:px-5 max-sm:py-5'>
+        <Container>
             <div className='col-span-2'></div>
             <div className="flex flex-col col-span-6 gap-6">
                 <TitledCard
@@ -170,7 +172,7 @@ const Main = () => {
                         </div>
                 </TitledCard>
             </div>
-        </div>
+        </Container>
     );
 }
 

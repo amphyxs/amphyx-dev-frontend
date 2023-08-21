@@ -1,8 +1,10 @@
+import Container from "../components/Container";
 import IconedTitle from "../components/IconedTitle";
+
 
 const NotFound = () => {
     return (
-        <div className="h-screen p-20 bg-slate-50 dark:bg-zinc-900">
+        <Container>
             <div className="flex justify-center ">
                 <IconedTitle
                     icon='not-found'
@@ -11,7 +13,7 @@ const NotFound = () => {
                     iconClassName='w-10 h-10 dark:fill-slate-200 fill-slate-600 dark:text-slate-200 text-slate-600'
                 />
             </div>
-        </div>
+        </Container>
     )
 }
 

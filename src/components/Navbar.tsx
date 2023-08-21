@@ -6,8 +6,8 @@ import ThemeChooser from './ThemeChooser';
 
 const navigation = [
   { name: 'Main', href: '/' },
-  { name: 'Projects', href: '/projects' },
   { name: 'Blog', href: '/blog' },
+  { name: 'Projects', href: '/projects' },
   { name: 'Books', href: '/books' },
 ]
 
