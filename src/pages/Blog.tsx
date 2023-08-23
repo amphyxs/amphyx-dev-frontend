@@ -1,42 +1,22 @@
-import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import TitledCard from "../components/TitledCard";
 import IconedTitle from "../components/IconedTitle";
 import Container from "../components/Container";
+import { useNavigate } from "react-router-dom";
+import { Post, getBlogPosts } from "../services/Blog";
 
 
 const Blog = () => {
 
-    const API_URL = process.env.REACT_APP_API_URL;
-
-    type Post = {
-        'id': number,
-        'title': string,
-        'createdAt': string,
-        'updatedAt': string,
-    }
-
-    type PostResponse = {
-        'id': number,
-        'title': string,
-        'created_at': string,
-        'updated_at': string,
-    }
-
     const [posts, setPosts] = useState([] as Array<Post>);
+    const navigate = useNavigate();
 
     const fetchPosts = () => {
-        axios
-            .get(`${API_URL}/api/blog/posts/`)
-            .then((response: AxiosResponse<Array<PostResponse>, Post>) => {
-                setPosts(response.data.map((responseObject) => Object.create({
-                    'id': responseObject.id,
-                    'title': responseObject.title,
-                    'createdAt': responseObject.created_at,
-                    'updatedAt': responseObject.updated_at,
-                }) as Post))
-            })
-            .catch((error: Error) => console.error(error.message));
+        getBlogPosts(setPosts);
+    }
+
+    const openPost = (postId: number) => {
+        navigate(`/blog/${postId}`);
     }
 
     useEffect(() => {
@@ -52,6 +32,8 @@ const Blog = () => {
                         <TitledCard
                             className='hover:opacity-80 hover:cursor-pointer'
                             title={post.title}
+                            onClick={() => openPost(post.id)}
+                            key={post.id}
                         >
                             <IconedTitle
                                 text={post.createdAt}

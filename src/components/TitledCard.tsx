@@ -7,9 +7,10 @@ type Props = {
     title?: string,
     icon?: string,
     className?: string,
+    onClick?: () => void,
 }
 
-const TitledCard = ({ children, title, icon, className }: Props) => {
+const TitledCard = ({ children, title, icon, className, onClick }: Props) => {
 
     if (!className)
         className = ''
@@ -17,7 +18,10 @@ const TitledCard = ({ children, title, icon, className }: Props) => {
         className += ' '
     
     return (
-        <div className={className + 'p-6 bg-white dark:text-slate-200 dark:bg-zinc-800 border-solid border-2 dark:border-slate-500 border-slate-100 shadow-sm rounded-xl'}>
+        <div 
+            className={className + 'p-6 bg-white dark:text-slate-200 dark:bg-zinc-800 border-solid border-2 dark:border-slate-500 border-slate-100 shadow-sm rounded-xl'}
+            onClick={onClick}
+        >
             {
                 (title || icon) &&
                 <IconedTitle

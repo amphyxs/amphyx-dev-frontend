@@ -117,7 +117,11 @@ const Main = () => {
                     <div role="list" className="divide-y-2 divide-gray-300">
                         {
                             contactLinks.map(contactLink => (
-                                <a href={contactLink.url} className="flex justify-between py-4 gap-x-6 hover:opacity-70">
+                                <a 
+                                    className="flex justify-between py-4 gap-x-6 hover:opacity-70"
+                                    href={contactLink.url}
+                                    key={contactLink.id}
+                                >
                                     <div className='flex gap-2'>
                                         <NamedIcon
                                             className='self-center w-4 h-4 text-slate-500 fill-slate-500 dark:text-slate-200 dark:fill-slate-200'
@@ -157,7 +161,11 @@ const Main = () => {
                         <div role="list" className="divide-y-2 divide-gray-300">
                             {
                                 hireLinks.map(contactLink => (
-                                    <a href={contactLink.url} className="flex justify-between py-4 gap-x-6 hover:opacity-70">
+                                    <a
+                                        className="flex justify-between py-4 gap-x-6 hover:opacity-70"
+                                        href={contactLink.url}
+                                        key={contactLink.id}
+                                    >
                                         <div className='flex gap-2'>
                                             <NamedIcon
                                                 className='self-center w-4 h-4 text-slate-500 fill-slate-500 dark:text-slate-200 dark:fill-slate-200'
