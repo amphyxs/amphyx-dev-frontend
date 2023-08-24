@@ -7,6 +7,7 @@ export type Post = {
     'createdAt': string,
     'updatedAt': string,
     'author': string,
+    'tags': Array<string>,
 }
 
 export type PostResponse = {
@@ -15,6 +16,7 @@ export type PostResponse = {
     'created_at': string,
     'updated_at': string,
     'author': string,
+    'tags': Array<string>,
 }
 
 export type FullPost = {
@@ -24,6 +26,7 @@ export type FullPost = {
     'createdAt': string,
     'updatedAt': string,
     'author': string,
+    'tags': Array<string>,
 }
 
 export type FullPostResponse = {
@@ -33,6 +36,7 @@ export type FullPostResponse = {
     'created_at': string,
     'updated_at': string,
     'author': string,
+    'tags': Array<string>,
 }
 
 export const getBlogPosts = (callback: (posts: Array<Post>) => void) => {
@@ -48,8 +52,9 @@ export const getBlogPost = async (postId: string | number | undefined) => {
     const response = await (
         axios
         .get(`${API_URL}/api/blog/posts/${postId}/`)
-    )
-    return convertResponseToFullPost(response.data as FullPostResponse);
+        .catch((error: Error) => console.error(error.message))
+    );
+    return response ? convertResponseToFullPost(response.data as FullPostResponse) : null;
 }
 
 export const convertResponseToPost = (responseData: PostResponse) => {
@@ -59,6 +64,7 @@ export const convertResponseToPost = (responseData: PostResponse) => {
         'createdAt': responseData.created_at,
         'updatedAt': responseData.updated_at,
         'author': responseData.author,
+        'tags': responseData.tags,
     }) as Post;
 }
 
@@ -70,5 +76,6 @@ export const convertResponseToFullPost = (responseData: FullPostResponse) => {
         'createdAt': responseData.created_at,
         'updatedAt': responseData.updated_at,
         'author': responseData.author,
+        'tags': responseData.tags,
     }) as FullPost;
 }

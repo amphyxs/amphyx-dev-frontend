@@ -6,17 +6,18 @@ type Props = {
     icon?: string,
     textClassName?: string,
     iconClassName?: string,
+    className?: string,
 }
 
-const IconedTitle = ({ text, icon, textClassName='text-2xl', iconClassName='mr-1 w-7 h-7' }: Props) => {
+const IconedTitle = ({ text, icon, textClassName='text-2xl', iconClassName='mr-1 w-7 h-7', className }: Props) => {
 
     return (
-        <div className="flex mb-5">
+        <div className={className + " flex mb-5"}>
             {
                 icon &&
                 <NamedIcon
                     name={icon}
-                    className={iconClassName + ' self-center inline'}
+                    className={iconClassName + ' self-center inline dark:text-slate-200 dark:fill-slate-200'}
                 />
             }
             {
