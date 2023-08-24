@@ -1,24 +1,13 @@
-import { useState } from "react";
+import { useContext } from "react";
+
 import NamedIcon from "./NamedIcon";
+import { ThemeContext } from "../contexts/ThemeContext";
+import { Theme } from "../services/Common";
 
-
-export enum Theme {
-    Light = 'light',
-    Dark = 'dark',
-}
 
 const ThemeChooser = () => {
-    
-    const getLocalTheme = () => {
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-            return Theme.Dark;
-        } else {
-            return Theme.Light;
-        }
-    }
 
-    const [theme, setTheme] = useState(getLocalTheme());
+    const {theme, setTheme} = useContext(ThemeContext);
 
     const getIconName = (theme: Theme) => {
         switch (theme) {

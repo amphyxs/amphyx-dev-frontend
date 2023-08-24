@@ -1,11 +1,12 @@
 import axios, { AxiosResponse } from 'axios';
 import { ArrowUpRightIcon } from '@heroicons/react/24/outline'
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+
 import NamedIcon from '../components/NamedIcon';
 import TitledCard from '../components/TitledCard';
 import IconedTitle from '../components/IconedTitle';
-import { Theme } from '../components/ThemeChooser';
 import Container from '../components/Container';
+import { ThemeContext } from '../contexts/ThemeContext';
 
 
 const Main = () => {
@@ -25,9 +26,10 @@ const Main = () => {
         'url': string,
         'icon': string,
     }
-
+    
     const [contactLinks, setContactLinks] = useState([] as Array<ContactLink>);
     const [hireLinks, setHireLinks] = useState([] as Array<ContactLink>);
+    const theme = useContext(ThemeContext).theme;
 
     const fetchContactLinks = () => {
         axios
@@ -54,10 +56,6 @@ const Main = () => {
                 }) as ContactLink))
             })
             .catch((error: Error) => console.error(error.message));
-    }
-
-    const getTheme = () => {
-        return document.documentElement.classList.contains('dark') ? Theme.Dark : Theme.Light;
     }
 
     useEffect(() => {
@@ -97,7 +95,7 @@ const Main = () => {
                     icon='github'
                 >
                     <img
-                        src={`https://github-readme-stats.vercel.app/api?username=amphyxs&theme=${getTheme()}&hide_border=true&card_width=700&disable_animations=true`}
+                        src={`https://github-readme-stats.vercel.app/api?username=amphyxs&theme=${theme}&hide_border=true&card_width=700&disable_animations=true`}
                     />
                 </TitledCard>
                 <TitledCard
@@ -106,7 +104,7 @@ const Main = () => {
                     icon='leetcode'
                 >
                     <img 
-                        src={`https://leetcard.jacoblin.cool/amphyx?border=0&theme=${getTheme()}&show_rank=false&width=700`}
+                        src={`https://leetcard.jacoblin.cool/amphyx?border=0&theme=${theme}&show_rank=false&width=700`}
                     />
                 </TitledCard>
             </div>
