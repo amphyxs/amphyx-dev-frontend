@@ -1,19 +1,65 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.scss';
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
+
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import Main from './pages/Main';
+import Blog from './pages/Blog';
+import BlogPostView from './pages/BlogPostView';
+import Projects from './pages/Projects';
+import Books from './pages/Books';
+import NotFound from './pages/NotFound';
+import { getBlogPost } from './services/Blog';
+
+import './css/index.scss';
+
+
+const RoutesJSX = (
+	<Route
+        path='/'
+        element={<App/>}
+    >
+		<Route
+			index
+			element={<Main/>}
+		/>
+		<Route
+			path='blog'
+		>
+			<Route
+				index
+				element={<Blog/>}
+			/>
+			<Route
+				path=':postId'
+				element={<BlogPostView/>}
+				loader={async ({ params }) => await getBlogPost(params.postId)}
+			/>
+		</Route>
+		<Route
+			path='projects'
+			element={<Projects/>}
+		/>
+		<Route
+			path='books'
+			element={<Books/>}
+		/>
+		<Route
+			path='*'
+			element={<NotFound/>}
+		/>
+	</Route>
+);
+
+const routes = createRoutesFromElements(RoutesJSX);
+const router = createBrowserRouter(routes);
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    document.getElementById('root') as HTMLElement
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+root.render(
+    <React.StrictMode>
+        <RouterProvider router={router}/>
+    </React.StrictMode>
+);
