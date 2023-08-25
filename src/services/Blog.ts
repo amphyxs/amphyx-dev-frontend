@@ -8,6 +8,7 @@ export type Post = {
     'updatedAt': string,
     'author': string,
     'tags': Array<string>,
+    'slug': string,
 }
 
 export type PostResponse = {
@@ -17,6 +18,7 @@ export type PostResponse = {
     'updated_at': string,
     'author': string,
     'tags': Array<string>,
+    'slug': string,
 }
 
 export type FullPost = {
@@ -27,6 +29,7 @@ export type FullPost = {
     'updatedAt': string,
     'author': string,
     'tags': Array<string>,
+    'slug': string,
 }
 
 export type FullPostResponse = {
@@ -37,6 +40,7 @@ export type FullPostResponse = {
     'updated_at': string,
     'author': string,
     'tags': Array<string>,
+    'slug': string,
 }
 
 export const getBlogPosts = (callback: (posts: Array<Post>) => void) => {
@@ -65,6 +69,7 @@ export const convertResponseToPost = (responseData: PostResponse) => {
         'updatedAt': responseData.updated_at,
         'author': responseData.author,
         'tags': responseData.tags,
+        'slug': responseData.slug,
     }) as Post;
 }
 
@@ -77,5 +82,6 @@ export const convertResponseToFullPost = (responseData: FullPostResponse) => {
         'updatedAt': responseData.updated_at,
         'author': responseData.author,
         'tags': responseData.tags,
+        'slug': responseData.slug,
     }) as FullPost;
 }

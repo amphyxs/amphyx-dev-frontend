@@ -9,7 +9,7 @@ import Container from "../components/Container"
 import { FullPost } from "../services/Blog";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { Theme } from "../services/Common";
-import WIPMessage from "../components/WIPMessage";
+import NotFound from "./NotFound";
 
 
 const BlogPostView = () => {
@@ -105,12 +105,7 @@ const BlogPostView = () => {
                 <div className='col-span-2'></div>
             </Container>
         ) : (
-            <Container>
-                <WIPMessage
-                    icon="not-found"
-                    text='Not found'
-                />
-            </Container>
+            <NotFound/>
         );
 }
 

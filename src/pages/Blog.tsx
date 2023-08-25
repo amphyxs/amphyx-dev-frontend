@@ -16,8 +16,8 @@ const Blog = () => {
         getBlogPosts(setPosts);
     }
 
-    const openPost = (postId: number) => {
-        navigate(`/blog/${postId}`);
+    const openPost = (postSlug: string) => {
+        navigate(`/blog/${postSlug}`);
     }
 
     useEffect(() => {
@@ -33,7 +33,7 @@ const Blog = () => {
                         <TitledCard
                             className='pb-3 hover:opacity-80 hover:cursor-pointer'
                             title={post.title}
-                            onClick={() => openPost(post.id)}
+                            onClick={() => openPost(post.slug)}
                             key={post.id}
                         >
                             <div className="flex flex-row justify-between">
