@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import NamedIcon from "./NamedIcon";
 import { ThemeContext } from "../contexts/ThemeContext";
-import { Theme } from "../services/Common";
+import { Theme, setThemeStyles } from "../services/Common";
 
 
 const ThemeChooser = () => {
@@ -22,12 +22,7 @@ const ThemeChooser = () => {
     
     const updateTheme = () => {
         const newTheme = (theme === Theme.Light ? Theme.Dark : Theme.Light);
- 
-        if (newTheme === Theme.Dark)
-            document.documentElement.classList.add('dark');
-        else
-            document.documentElement.classList.remove('dark');
-
+        setThemeStyles(newTheme);
         localStorage.setItem('theme', newTheme);
         setTheme(newTheme);
     }
