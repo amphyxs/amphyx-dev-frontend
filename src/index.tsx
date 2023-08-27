@@ -12,6 +12,7 @@ import NotFound from './pages/NotFound';
 import { getBlogPost } from './services/Blog';
 
 import './css/index.scss';
+import { getProjects } from './services/Projects';
 
 
 const RoutesJSX = (
@@ -34,11 +35,12 @@ const RoutesJSX = (
 				path=':postId'
 				element={<BlogPostView/>}
 				loader={async ({ params }) => await getBlogPost(params.postId)}
-			/>
+				/>
 		</Route>
 		<Route
 			path='projects'
 			element={<Projects/>}
+			loader={async () => await getProjects()}
 		/>
 		<Route
 			path='books'

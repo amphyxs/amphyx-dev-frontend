@@ -7,12 +7,13 @@ type Props = {
     textClassName?: string,
     iconClassName?: string,
     className?: string,
+    href?: string,
 }
 
-const IconedTitle = ({ text, icon, textClassName='text-2xl', iconClassName='mr-1 w-7 h-7', className }: Props) => {
+const IconedTitle = ({ text, icon, textClassName='text-2xl', iconClassName='mr-1 w-7 h-7', className='mb-5', href }: Props) => {
 
     return (
-        <div className={className + " flex mb-5"}>
+        <div className={className + " flex"}>
             {
                 icon &&
                 <NamedIcon
@@ -21,8 +22,13 @@ const IconedTitle = ({ text, icon, textClassName='text-2xl', iconClassName='mr-1
                 />
             }
             {
-                text &&
-                <h1 className={textClassName + ' flex-1'}>{text}</h1>
+                text && (
+                    href ? (
+                        <a href={href} className={textClassName + ' flex-1 hover:opacity-50'}>{text}</a>
+                    ) : (
+                        <h1 className={textClassName + ' flex-1'}>{text}</h1>
+                    )
+                )
             }
         </div>
     );
