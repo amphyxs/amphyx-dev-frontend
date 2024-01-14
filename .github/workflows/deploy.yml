@@ -15,7 +15,6 @@ jobs:
     - name: Store deploy flag to output
       id: flag-store
       run: |
-        FLAG=`cat deploy-flag`
         echo "deploy-flag=${{ env.DEPLOY_FLAG }}" >> "$GITHUB_OUTPUT" 
   
   deploy:
