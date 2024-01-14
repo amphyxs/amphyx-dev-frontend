@@ -20,6 +20,7 @@ jobs:
           jq '[.[] | select(.merged_at != null) | select(.merged_at > (now | . - 24*60*60 | todate))]' | jq length)
         echo "count=$PR_COUNT" >> "$GITHUB_OUTPUT"
         echo "count=$PR_COUNT"
+        echo ${{ github.repository }}
 
   deploy:
     needs: check-for-merged-pr
