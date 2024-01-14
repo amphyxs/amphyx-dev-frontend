@@ -11,9 +11,4 @@ jobs:
 
     steps:
       - run: |
-          echo "true" > deploy-flag
-      - name: Upload deploy flag
-        uses: actions/upload-artifact@v3
-        with:
-          name: deploy-flag
-          path: deploy-flag
+          echo "DEPLOY_FLAG=true" >> $GITHUB_ENV

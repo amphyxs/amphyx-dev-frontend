@@ -3,6 +3,7 @@ name: Deploy
 on:
   schedule:
     - cron: '*/6 * * * *'
+  workflow_dispatch:
 
 jobs:
   check-deploy-needed:
@@ -11,15 +12,11 @@ jobs:
       is-deploy-needed: ${{ steps.flag-store.outputs.deploy-flag }}
 
     steps:
-    - name: Download deploy flag
-      uses: actions/download-artifact@v3
-      with:
-        name: deploy-flag
     - name: Store deploy flag to output
       id: flag-store
       run: |
         FLAG=`cat deploy-flag`
-        echo "deploy-flag=$FLAG" >> "$GITHUB_OUTPUT" 
+        echo "deploy-flag=${{ env.DEPLOY_FLAG }}" >> "$GITHUB_OUTPUT" 
   
   deploy:
     runs-on: ubuntu-latest
@@ -54,10 +51,5 @@ jobs:
 
     steps:
       - run: |
-          echo "false" > deploy-flag
-      - name: Upload deploy flag
-        uses: actions/upload-artifact@v3
-        with:
-          name: deploy-flag
-          path: deploy-flag
+          echo "DEPLOY_FLAG=false" >> $GITHUB_ENV
 
