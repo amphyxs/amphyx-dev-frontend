@@ -2,7 +2,7 @@ name: Deploy to server
 
 on:
   schedule:
-    - cron: '45 12 * * *' # every day at 12:45 UTC
+    - cron: '45 9 * * *'
 
 jobs:
   check-for-merged-pr:
