@@ -1,13 +1,25 @@
 name: Deploy to server
 
 on:
-  push:
-    branches:
-      - main  # Trigger this workflow on push to the main branch
-  workflow_dispatch:  # Allow manual triggering of this workflow
+  schedule:
+    - cron: '45 12 * * *' # every day at 12:45 UTC
 
 jobs:
-  build-and-deploy:
+  check-for-merged-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check for merged PRs
+      id: check
+      run: |
+        PR_COUNT=$(curl -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/${{ github.repository }}/pulls?state=closed | \
+          jq '[.[] | select(.merged_at != null) | select(.merged_at > (now | . - 24*60*60 | todate))]' | jq length)
+        echo "::set-output name=count::$PR_COUNT"
+
+  deploy:
+    needs: check-for-merged-pr
+    if: needs.check-for-merged-pr.outputs.count > 0
     runs-on: ubuntu-latest
 
     steps:
