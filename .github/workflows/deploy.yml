@@ -12,20 +12,22 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Install dependencies and build
       run: |
         npm install
         npm run build
 
-    - name: Deploy to server
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SERVER_HOST }}
-        username: ${{ secrets.SERVER_SSH_USERNAME }}
-        key: ${{ secrets.SERVER_SSH_KEY }}
-        script: |
-          cd ~/my-app
-          rm -rf *
-          tar xzvf - -C .
+    - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh/
+        echo "${{ secrets.SERVER_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        echo "${{ secrets.SERVER_SSH_PUBLIC_KEY }}" > ~/.ssh/id_rsa.pub
+        chmod 600 ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa.pub
+        ssh-keyscan -H ${{ secrets.SERVER_SSH_IP }} >> ~/.ssh/known_hosts
+    
+    - name: Deploy builds to server
+      run: |
+        rsync -vrm build/* ${{ secrets.SERVER_SSH_USERNAME }}@${{ secrets.SERVER_HOST }}:~/test/
