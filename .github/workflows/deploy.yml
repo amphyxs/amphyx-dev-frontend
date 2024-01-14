@@ -1,31 +1,30 @@
-name: Test cron
+name: Deploy
 
 on:
   schedule:
-    - cron: '25 11,14 * * *'
-  workflow_dispatch:
+    - cron: '*/6 * * * *'
 
 jobs:
-  check-for-merged-pr:
+  check-deploy-needed:
     runs-on: ubuntu-latest
     outputs:
-      count: ${{ steps.check.outputs.count }}
+      is-deploy-needed: ${{ steps.flag-store.outputs.deploy-flag }}
 
     steps:
-    - name: Check for merged PRs
-      id: check
+    - name: Download deploy flag
+      uses: actions/download-artifact@v3
+      with:
+        name: deploy-flag
+    - name: Store deploy flag to output
+      id: flag-store
       run: |
-        PR_COUNT=$(curl -H "Accept: application/vnd.github.v3+json" \
-          https://api.github.com/repos/${{ github.repository }}/pulls?state=closed | \
-          jq '[.[] | select(.merged_at != null) | select(.merged_at > (now | . - 24*60*60 | todate))]' | jq length)
-        echo "count=$PR_COUNT" >> "$GITHUB_OUTPUT"
-        echo "count=$PR_COUNT"
-        echo ${{ github.repository }}
-
+        FLAG=`cat deploy-flag`
+        echo "deploy-flag=$FLAG" >> "$GITHUB_OUTPUT" 
+  
   deploy:
-    needs: check-for-merged-pr
-    if: needs.check-for-merged-pr.outputs.count > 0
     runs-on: ubuntu-latest
+    needs: check-deploy-needed
+    if: ${{ needs.check-deploy-needed.outputs.is-deploy-needed == 'true' }}
 
     steps:
     - name: Checkout code
@@ -48,3 +47,17 @@ jobs:
     - name: Deploy builds to server
       run: |
         rsync -vrm build/* ${{ secrets.SERVER_SSH_USERNAME }}@${{ secrets.SERVER_SSH_IP }}:~/test/
+
+  mark-deploy-done:
+    needs: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: |
+          echo "false" > deploy-flag
+      - name: Upload deploy flag
+        uses: actions/upload-artifact@v3
+        with:
+          name: deploy-flag
+          path: deploy-flag
+
