@@ -14,7 +14,8 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Install dependencies and build
-      run:
+      run: |
+        npm install
         npm run build
 
     - name: Deploy to server
