@@ -16,7 +16,8 @@ jobs:
         PR_COUNT=$(curl -H "Accept: application/vnd.github.v3+json" \
           https://api.github.com/repos/${{ github.repository }}/pulls?state=closed | \
           jq '[.[] | select(.merged_at != null) | select(.merged_at > (now | . - 24*60*60 | todate))]' | jq length)
-        echo "::set-output name=count::$PR_COUNT"
+        echo "{count}={$PR_COUNT}" >> $GITHUB_OUTPUT
+        echo $PR_COUNT
 
   deploy:
     needs: check-for-merged-pr
