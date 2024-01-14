@@ -1,0 +1,50 @@
+name: Test cron
+
+on:
+  schedule:
+    - cron: '25 11,14 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-for-merged-pr:
+    runs-on: ubuntu-latest
+    outputs:
+      count: ${{ steps.check.outputs.count }}
+
+    steps:
+    - name: Check for merged PRs
+      id: check
+      run: |
+        PR_COUNT=$(curl -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/${{ github.repository }}/pulls?state=closed | \
+          jq '[.[] | select(.merged_at != null) | select(.merged_at > (now | . - 24*60*60 | todate))]' | jq length)
+        echo "count=$PR_COUNT" >> "$GITHUB_OUTPUT"
+        echo "count=$PR_COUNT"
+        echo ${{ github.repository }}
+
+  deploy:
+    needs: check-for-merged-pr
+    if: needs.check-for-merged-pr.outputs.count > 0
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install dependencies and build
+      run: |
+        npm install
+        npm run build
+
+    - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh/
+        echo "${{ secrets.SERVER_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        echo "${{ secrets.SERVER_SSH_PUBLIC_KEY }}" > ~/.ssh/id_rsa.pub
+        chmod 600 ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa.pub
+        ssh-keyscan -H ${{ secrets.SERVER_SSH_IP }} >> ~/.ssh/known_hosts
+    
+    - name: Deploy builds to server
+      run: |
+        rsync -vrm build/* ${{ secrets.SERVER_SSH_USERNAME }}@${{ secrets.SERVER_SSH_IP }}:~/test/
