@@ -30,4 +30,4 @@ jobs:
     
     - name: Deploy builds to server
       run: |
-        rsync -vrm build/* ${{ secrets.SERVER_SSH_USERNAME }}@${{ secrets.SERVER_HOST }}:~/test/
+        rsync -vrm build/* ${{ secrets.SERVER_SSH_USERNAME }}@${{ secrets.SERVER_SSH_IP }}:~/test/
