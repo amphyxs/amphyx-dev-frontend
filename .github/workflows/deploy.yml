@@ -2,8 +2,7 @@ name: Deploy to server
 
 on:
   schedule:
-    - cron: '52 9 * * *'
-    - cron: '52 12 * * *'
+    - cron: '58 9,12 * * *'
 
 jobs:
   deploy:
