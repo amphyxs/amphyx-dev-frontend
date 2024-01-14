@@ -8,6 +8,8 @@ on:
 jobs:
   check-for-merged-pr:
     runs-on: ubuntu-latest
+    outputs:
+      count: ${{ steps.check.outputs.count }}
 
     steps:
     - name: Check for merged PRs
